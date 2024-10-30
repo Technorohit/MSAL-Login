@@ -1,0 +1,67 @@
+/* Main dashboard container */
+.dashboard-container {
+    padding: 2rem;
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Title styling */
+.dashboard-container h1 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Statistics section styling */
+.stats-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h2 {
+    color: #007bff;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.stat-card p {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Recent activities section styling */
+.activities-section h2 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.activities-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-item {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activity-item .time {
+    color: #999;
+    font-size: 0.9rem;
+}

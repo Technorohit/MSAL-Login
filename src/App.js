@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useMsal } from '@azure/msal-react';
+import Home from './Home';
+import Dashboard from './Dashboard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const { instance, accounts } = useMsal();
+
+    const isAuthenticated = accounts.length > 0;
+    console.log("AUthenticated", accounts)
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="/dashboard"
+                    element={
+                        isAuthenticated ? (
+                            <Dashboard />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
+                />
+            </Routes>
+        </Router>
+    );
+};
 
 export default App;
