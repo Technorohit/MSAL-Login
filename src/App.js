@@ -6,10 +6,19 @@ import Home from './Home';
 import Dashboard from './Dashboard';
 
 const App = () => {
-    const {accounts } = useMsal();
+    const {accounts, instance } = useMsal();
 
     const isAuthenticated = accounts.length > 0;
-    console.log("AUthenticated", accounts)
+    if(!isAuthenticated){
+        console.log("No account fount", accounts);
+        instance.ssoSilent().then(res=>{
+            console.log("Using SSO Login", res);
+        }).catch(err=>
+            console.log("Error = ",err))
+        
+    }else{
+        console.log("AUthenticated account = ", accounts)
+    }
     return (
         <Router>
             <Routes>
