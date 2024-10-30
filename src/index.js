@@ -5,7 +5,6 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import App from './App';
 import msalConfig from './msalConfig';
-import reportWebVitals from './reportWebVitals';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));

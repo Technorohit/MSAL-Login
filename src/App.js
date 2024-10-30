@@ -6,7 +6,7 @@ import Home from './Home';
 import Dashboard from './Dashboard';
 
 const App = () => {
-    const { instance, accounts } = useMsal();
+    const {accounts } = useMsal();
 
     const isAuthenticated = accounts.length > 0;
     console.log("AUthenticated", accounts)
