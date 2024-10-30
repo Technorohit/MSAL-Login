@@ -10,8 +10,12 @@ const App = () => {
 
     const isAuthenticated = accounts.length > 0;
     if(!isAuthenticated){
+        const silentRequest = {
+            scopes: ["User.Read"],
+            // loginHint: "user@contoso.com"
+        };
         console.log("No account fount", accounts);
-        instance.ssoSilent().then(res=>{
+        instance.ssoSilent(silentRequest).then(res=>{
             console.log("Using SSO Login", res);
         }).catch(err=>
             console.log("Error = ",err))
