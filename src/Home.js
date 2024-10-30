@@ -15,9 +15,32 @@ const Home = () => {
     useEffect(()=>{
         const isAuthenticated = accounts.length > 0;
         if(isAuthenticated){
+        console.log("IsAuthenticated", accounts[0])
             navigate('/dashboard'); 
         }
-    })
+        else{
+        console.log("its not Authenticated", accounts[0])
+            init()
+        }
+    },[])
+  function init(){
+    const isAuthenticated = accounts.length > 0;
+
+    if(!isAuthenticated){
+        const silentRequest = {
+            scopes: ["User.Read"],
+            // loginHint: "user@contoso.com"
+        };
+        console.log("No account fount", accounts);
+        instance.ssoSilent(silentRequest).then(res=>{
+            console.log("Using SSO Login", res);
+        }).catch(err=>
+            console.log("Error = ",err))
+        
+    }else{
+        console.log("AUthenticated account = ", accounts)
+    }
+  }
 
     return (
         <div className="home-container">
