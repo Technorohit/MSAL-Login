@@ -9,38 +9,35 @@ const Home = () => {
     const navigate = useNavigate();
 
     const login = () => {
-        instance.loginPopup().then(res => console.log(res))
-            .catch((error) => console.log(error));
+        instance.loginPopup().then(res => console.log("Popup login response:", res))
+            .catch(error => console.log("Popup login error:", error));
     };
+
     useEffect(() => {
         const isAuthenticated = accounts.length > 0;
+
         if (isAuthenticated) {
-            console.log("IsAuthenticated", accounts[0])
+            console.log("Authenticated user:", accounts[0]);
             navigate('/dashboard');
+        } else {
+            console.log("No authenticated user found.");
+
+            const silentRequest = {
+                scopes: ["User.Read"],
+                // loginHint: "user@contoso.com" // Optional: set loginHint to bypass account selection
+            };
+
+            instance.ssoSilent(silentRequest)
+                .then(response => {
+                    console.log("Silent SSO response:", response);
+                    navigate('/dashboard'); // Redirect on successful silent SSO
+                })
+                .catch(error => {
+                    console.log("Silent SSO error:", error);
+                    // Optionally trigger a loginPopup here as a fallback
+                });
         }
-        else {
-            console.log("its not Authenticated", accounts[0])
-            
-                const isAuthenticated = accounts.length > 0;
-        
-                if (!isAuthenticated) {
-                    const silentRequest = {
-                        scopes: ["User.Read"],
-                        // loginHint: "user@contoso.com"
-                    };
-                    console.log("No account fount", accounts);
-                    instance.ssoSilent(silentRequest).then(res => {
-                        console.log("Using SSO Login", res);
-                    }).catch(err =>
-                        console.log("Error = ", err))
-        
-                } else {
-                    console.log("AUthenticated account = ", accounts)
-                }
-            
-        }
-    }, [])
-   
+    }, [accounts, instance, navigate]); // Include dependencies
 
     return (
         <div className="home-container">
