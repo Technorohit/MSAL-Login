@@ -8,10 +8,14 @@ import msalConfig from './msalConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <MsalProvider instance={msalInstance}>
-        <App />
-    </MsalProvider>
-    </React.StrictMode>
-);
+msalInstance.initialize().then(()=>{
+  root.render(
+    <React.StrictMode>
+      <MsalProvider instance={msalInstance}>
+          <App />
+      </MsalProvider>
+      </React.StrictMode>
+  );
+}).catch(()=>{
+  console.log("Msal not initialized")
+})
